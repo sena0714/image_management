@@ -13,16 +13,24 @@
                         <div class="w-full p-2 mb-4">
                             <a href="{{route('images.create')}}" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">新規登録</a>
                         </div>
-
                         <div class="flex flex-wrap -m-4">
-
-                            <div class="xl:w-1/4 md:w-1/2 p-4">
-                                <div class="border border-gray-200 p-6 rounded-lg">
-                                    <h2 class="text-lg text-gray-900 font-medium title-font mb-4">画像</h2>
-                                    <img class="h-40 rounded w-full object-cover object-center" src="https://dummyimage.com/720x400" alt="content">
+                            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+                                <div class="mt-4">
+                                    <h2 class="text-gray-900 title-font text-lg font-medium">The Catalyzer</h2>
                                 </div>
+                                <a class="block relative h-48 rounded overflow-hidden">
+                                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/420x260">
+                                </a>
                             </div>
 
+                            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+                                <div class="mt-4">
+                                    <h2 class="text-gray-900 title-font text-lg font-medium">The Catalyzer</h2>
+                                </div>
+                                <a class="block relative h-48 rounded overflow-hidden">
+                                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/420x260">
+                                </a>
+                            </div>
                         </div>
                     </section>
                 </div>
