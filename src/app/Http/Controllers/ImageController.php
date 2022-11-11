@@ -32,7 +32,7 @@ class ImageController extends Controller
             'filename' => $fileName
         ]);
         
-        return view('images.index');
+        return redirect()->route('images.index')->with(['flashStatus' => 'info', 'flashMessage' => '画像を登録しました。']);
     }
 
     public function show($id)

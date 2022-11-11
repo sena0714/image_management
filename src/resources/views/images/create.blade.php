@@ -13,6 +13,7 @@
                     <section class="text-gray-600 body-font relative">
                         <div class="container px-5 py-24 mx-auto">
                             <div class="lg:w-1/2 md:w-2/3 mx-auto">
+                                <x-input-error :messages="$errors->all()" class="mb-4" />
                                 <form method="post" action="{{ route('images.store') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="flex flex-wrap -m-2">
