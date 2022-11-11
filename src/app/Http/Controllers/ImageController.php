@@ -12,7 +12,8 @@ class ImageController extends Controller
 {
     public function index()
     {
-        return view('images.index');
+        $images = Image::where('user_id', Auth::id())->get();
+        return view('images.index', compact('images'));
     }
 
     public function create()

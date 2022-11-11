@@ -15,23 +15,16 @@
                             <a href="{{route('images.create')}}" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">新規登録</a>
                         </div>
                         <div class="flex flex-wrap -m-4">
+                            @foreach ($images as $image)
                             <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
                                 <div class="mt-4">
-                                    <h2 class="text-gray-900 title-font text-lg font-medium">The Catalyzer</h2>
+                                    <h2 class="text-gray-900 title-font text-lg font-medium">{{ $image->title }}</h2>
                                 </div>
                                 <a class="block relative h-48 rounded overflow-hidden">
-                                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/420x260">
+                                    <img src="{{ asset('storage/images/'.$image->filename) }}" alt="">
                                 </a>
                             </div>
-
-                            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                                <div class="mt-4">
-                                    <h2 class="text-gray-900 title-font text-lg font-medium">The Catalyzer</h2>
-                                </div>
-                                <a class="block relative h-48 rounded overflow-hidden">
-                                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="https://dummyimage.com/420x260">
-                                </a>
-                            </div>
+                            @endforeach
                         </div>
                     </section>
                 </div>
