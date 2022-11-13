@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            画像管理
+            フォルダ管理
         </h2>
     </x-slot>
 
@@ -12,17 +12,19 @@
                     <x-flash-message />
                     <section class="text-gray-600 body-font">
                         <div class="w-full p-2 mb-4">
-                            <a href="{{route('images.create')}}" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">新規登録</a>
+                            <a href="{{route('folders.create')}}" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">新規登録</a>
                         </div>
                         <div class="flex flex-wrap -m-4">
-                            @foreach ($images as $image)
+                            @foreach ($folders as $folder)
                             <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
                                 <div class="mt-4">
-                                    <h2 class="text-gray-900 title-font text-lg font-medium">{{ $image->title }}</h2>
+                                    <a href="{{ route('folders.edit', ['folder' => $folder->id]) }}">
+                                        <div class="folder_top"></div>
+                                        <div class="folder_main">
+                                            <p class="folder_name">{{ $folder->name }}</p>
+                                        </div>
+                                    </a>
                                 </div>
-                                <a href="{{ route('images.edit', ['image' => $image->id]) }}" class="block relative h-48 rounded overflow-hidden">
-                                    <img src="{{ asset('storage/images/'.$image->filename) }}" alt="">
-                                </a>
                             </div>
                             @endforeach
                         </div>

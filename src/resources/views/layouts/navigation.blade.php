@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('images.index')" :active="request()->routeIs('images.index')">
                         画像管理
                     </x-nav-link>
+                    <x-nav-link :href="route('folders.index')" :active="request()->routeIs('folders.index')">
+                        フォルダ管理
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -71,6 +74,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('images.index')" :active="request()->routeIs('images.index')">
                 画像管理
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('folders.index')" :active="request()->routeIs('folders.index')">
+                フォルダ管理
             </x-responsive-nav-link>
         </div>
 

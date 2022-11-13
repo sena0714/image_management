@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Image::class);
     }
+
+    public function folder()
+    {
+        return $this->hasMany(Folder::class);
+    }
 }

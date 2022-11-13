@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\FolderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,12 @@ use App\Http\Controllers\ImageController;
 */
 
 Route::resource('images', ImageController::class)
-->middleware('auth');
+->middleware('auth')
+->except(['show']);
+
+Route::resource('folders', FolderController::class)
+->middleware('auth')
+->except(['show']);
 
 Route::get('/', function () {
     return view('welcome');
