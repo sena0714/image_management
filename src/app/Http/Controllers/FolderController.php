@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Folder;
+use App\Models\Image;
 
 class FolderController extends Controller
 {
@@ -28,17 +29,22 @@ class FolderController extends Controller
     {
         $folders = Folder::where('user_id', Auth::id())->get();
 
+        $images = Image::where('user_id', Auth::id())->get();
+
         return view('folders.index', compact('folders'));
     }
 
     public function create()
     {
-        return view('folders.create');
+        $images = Image::where('user_id', Auth::id())->get();
+
+        return view('folders.create', compact('images'));
     }
 
     public function store(Request $request)
     {
-        //
+        dump($request);
+        exit;
     }
 
     public function edit($id)

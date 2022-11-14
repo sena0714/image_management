@@ -16,7 +16,7 @@
                         </div>
                         <div class="flex flex-wrap -m-4">
                             @foreach ($folders as $folder)
-                            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+                            <div class="lg:w-1/4 md:w-1/3 sm:w-full p-4">
                                 <div class="mt-4">
                                     <a href="{{ route('folders.edit', ['folder' => $folder->id]) }}">
                                         <div class="folder_top"></div>

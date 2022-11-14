@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\requests\image\StoreRequest;
+use App\Http\requests\image\UpdateRequest;
 use App\Models\Image;
 use App\Services\image\ImageService;
 use Illuminate\Support\Facades\Storage;
@@ -61,7 +62,7 @@ class ImageController extends Controller
         return view('images.edit', compact('image'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         $image = Image::findOrFail($id);
 
