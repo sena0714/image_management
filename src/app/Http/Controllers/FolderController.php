@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Folder;
 use App\Models\Image;
+use App\Http\Requests\folder\StoreRequest;
 
 class FolderController extends Controller
 {
@@ -41,10 +42,22 @@ class FolderController extends Controller
         return view('folders.create', compact('images'));
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        dump($request);
-        exit;
+        $folder =Folder::create([
+            'user_id' => Auth::id(),
+            'name' => $request->folder_name
+        ]);
+
+        foreach ($request->images as $imageId) {
+            $image = Image::find($imageId);
+            $image->folder_id = $folder->id;
+            $image->save();
+        }
+
+        return redirect()
+            ->route('folders.index')
+            ->with(['flashStatus' => 'info', 'flashMessage' => 'フォルダを登録しました。']);
     }
 
     public function edit($id)

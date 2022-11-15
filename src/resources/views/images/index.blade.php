@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <x-flash-message />
                     <section class="text-gray-600 body-font">
-                        <div class="w-full p-2 mb-4">
+                        <div class="flex justify-end w-full p-2 mb-4">
                             <a href="{{route('images.create')}}" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">新規登録</a>
                         </div>
                         <div class="flex flex-wrap -m-4">
@@ -21,7 +21,7 @@
                                     <h2 class="text-gray-900 title-font text-lg font-medium">{{ $image->title }}</h2>
                                 </div>
                                 <a href="{{ route('images.edit', ['image' => $image->id]) }}" class="block relative h-48 rounded overflow-hidden">
-                                    <img src="{{ asset('storage/images/'.$image->filename) }}" alt="">
+                                    <img src="{{ asset('storage/images/'.$image->filename) }}" class="bg-cover h-40">
                                 </a>
                             </div>
                             @endforeach
