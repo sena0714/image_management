@@ -61,6 +61,6 @@
 
             document.querySelector('input[name="_method"]').value = 'DELETE';
             document.getElementById('image_form').submit();
-        })
+        });
     </script>
 </x-app-layout>
