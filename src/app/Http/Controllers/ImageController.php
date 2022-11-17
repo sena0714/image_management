@@ -11,22 +11,6 @@ use App\Services\image\ImageService;
 use Illuminate\Support\Facades\Storage;
 class ImageController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(function($request, $next) {
-            $id = $request->route()->parameter('image');
-
-            if (isset($id)) {
-                $imageUserId = (int) Image::findOrFail($id)->user->id;
-                if ($imageUserId !== Auth::id()) {
-                    abort(404);
-                }
-            }
-
-            return $next($request);
-        });
-    }
-    
     public function index()
     {
         $images = Image::where('user_id', Auth::id())->get();
@@ -55,16 +39,16 @@ class ImageController extends Controller
             ->with(['flashStatus' => 'info', 'flashMessage' => '画像を登録しました。']);
     }
 
-    public function edit($id)
+    public function edit(Image $image)
     {
-        $image = Image::findOrFail($id);
+        $this->authorize('edit', [Image::class, $image]);
 
         return view('images.edit', compact('image'));
     }
 
-    public function update(UpdateRequest $request, $id)
+    public function update(UpdateRequest $request, Image $image)
     {
-        $image = Image::findOrFail($id);
+        $this->authorize('update', [Image::class, $image]);
 
         $image->title = $request->title;
 
@@ -88,9 +72,9 @@ class ImageController extends Controller
             ->with(['flashStatus' => 'info', 'flashMessage' => '画像情報を変更しました。']);
     }
 
-    public function destroy($id)
+    public function destroy(Image $image)
     {
-        $image = Image::findOrFail($id);
+        $this->authorize('delete', [Image::class, $image]);
 
         $filePath = 'storage/images/'.$image->filename;
         if (Storage::exists($filePath)) {

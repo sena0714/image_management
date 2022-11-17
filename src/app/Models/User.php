@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Folder::class);
     }
+
+    public function hasFolder(Folder $folder)
+    {
+        return $this->id === $folder->user_id;
+    }
+
+    public function hasImage(Image $image)
+    {
+        return $this->id === $image->user_id;
+    }
 }

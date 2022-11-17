@@ -7,25 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Folder;
 use App\Models\Image;
 use App\Http\Requests\folder\StoreRequest;
+use App\Http\Requests\folder\UpdateRequest;
 
 class FolderController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(function($request, $next) {
-            $id = $request->route()->parameter('folder');
-    
-            if (isset($id)) {
-                $folderUserId = (int) Folder::findOrFail($id)->user->id;
-                if ($folderUserId !== Auth::id()) {
-                    abort(404);
-                }
-            }
-    
-            return $next($request);
-        });
-    }
-    
     public function index()
     {
         $folders = Folder::where('user_id', Auth::id())->get();
@@ -51,48 +36,57 @@ class FolderController extends Controller
             'name' => $request->folder_name
         ]);
 
-        foreach ($request->images as $imageId) {
-            Image::where('id', $imageId)->update(['folder_id' => $folder->id]);
+        if (isset($request->images)) {
+            foreach ($request->images as $imageId) {
+                Image::where('id', $imageId)->update(['folder_id' => $folder->id]);
+            }
         }
             
         return redirect()->route('folders.index')
             ->with(['flashStatus' => 'info', 'flashMessage' => 'フォルダを登録しました。']);
     }
 
-    public function edit($id)
+    public function edit(Folder $folder)
     {
-        $folder = Folder::findOrFail($id);
+        $this->authorize('edit', [Folder::class, $folder]);
 
+        $folderId = $folder->id;
         $images = Image::where('user_id', Auth::id())
-                        ->where(function($images) use($id) {
-                            $images->whereNull('folder_id')
-                                ->orWhere('folder_id', $id);
-                        })
-                        ->get();
+                    ->where(function($images) use($folderId) {
+                        $images->whereNull('folder_id')
+                            ->orWhere('folder_id', $folderId);
+                    })
+                    ->get();
 
         return view('folders.edit', compact('folder', 'images'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Folder $folder)
     {
-        Folder::where('id', $id)->update(['name' => $request->folder_name]);
+        $this->authorize('update', [Folder::class, $folder]);
+        
+        $folder->update(['name' => $request->folder_name]);
 
         // チェックが入っていない画像との関連付けをなくす為、一度変更するフォルダと画像との関連付けを全てなくす
-        Image::where('folder_id', $id)->update(['folder_id' => null]);
+        Image::where('folder_id', $folder->id)->update(['folder_id' => null]);
 
-        foreach ($request->images as $imageId) {
-            Image::where('id', $imageId)->update(['folder_id' => $id]);
+        if (isset($request->images)) {
+            foreach ($request->images as $imageId) {
+                Image::where('id', $imageId)->update(['folder_id' => $folder->id]);
+            }
         }
 
         return redirect()->route('folders.index')
             ->with(['flashStatus' => 'info', 'flashMessage' => 'フォルダ情報を変更しました。']);
     }
 
-    public function destroy($id)
+    public function destroy(Folder $folder)
     {
-        Image::where('folder_id', $id)->update(['folder_id' => null]);    
+        $this->authorize('delete', [Folder::class, $folder]);
 
-        Folder::destroy($id);
+        Image::where('folder_id', $folder->id)->update(['folder_id' => null]);    
+
+        $folder->delete();
 
         return redirect()->route('folders.index')
             ->with(['flashStatus' => 'info', 'flashMessage' => 'フォルダを削除しました。']);
