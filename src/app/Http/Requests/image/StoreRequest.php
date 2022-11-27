@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\image;
 
+use App\Models\Image;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -39,5 +40,10 @@ class StoreRequest extends FormRequest
             'image.mines' => '指定された拡張子(jpg/jpeg/png)ではありません。',
             'image.max' => 'ファイルサイズは10MB以内にしてください。',
         ];
+    }
+
+    public function makeImage(): Image
+    {
+        return new Image($this->validated());
     }
 }

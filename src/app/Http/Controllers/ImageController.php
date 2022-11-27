@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\requests\image\StoreRequest;
 use App\Http\requests\image\UpdateRequest;
 use App\Models\Image;
-use App\Services\image\ImageService;
+use App\Services\image\ImageUploader;
 use Illuminate\Support\Facades\Storage;
+use App\UseCases\Image\StoreAction;
 class ImageController extends Controller
 {
     public function index()
@@ -22,17 +23,12 @@ class ImageController extends Controller
         return view('images.create');
     }
 
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request, StoreAction $action)
     {
-        $imageFile = $request->file('image');
-        $imageService = new ImageService();
-        $fileName = $imageService->upload($imageFile, 'images');
-
-        Image::create([
-            'user_id' => Auth::id(),
-            'title' => $request->title,
-            'filename' => $fileName
-        ]);
+        $user = Auth::user();
+        $image = $request->makeImage();
+        
+        $action($request, $user, $image);
         
         return redirect()
             ->route('images.index')
@@ -48,8 +44,6 @@ class ImageController extends Controller
 
     public function update(UpdateRequest $request, Image $image)
     {
-        $this->authorize('update', [Image::class, $image]);
-
         $image->title = $request->title;
 
         if ($request->file('image')) {
@@ -59,7 +53,7 @@ class ImageController extends Controller
             }
 
             $imageFile = $request->file('image');
-            $imageService = new ImageService();
+            $imageService = new ImageUploader();
             $fileName = $imageService->upload($imageFile, 'images');
 
             $image->filename = $fileName;

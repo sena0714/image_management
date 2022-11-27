@@ -3,7 +3,7 @@ namespace App\Services\image;
 
 use Illuminate\Support\Facades\Storage;
 
-class ImageService
+class ImageUploader
 {
     public function upload($imageFile, $folderName)
     {
