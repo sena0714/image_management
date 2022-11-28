@@ -8,10 +8,10 @@
     <div class="content_wrapper">
         <div class="content_container">
             <div class="side_container">
-                <a href="{{ route('image_list.index') }}" class="folder_change_link {{ !isset($folderId) ? 'action' : ''}}">すべて</a>
+                <a href="{{ route('image_list.index') }}" class="folder_change_link {{ !isset($specifiedFolderId) ? 'action' : ''}}">すべて</a>
 
                 @foreach ($folders as $folder)
-                    <a href="{{ route('image_list.filtering', ['folder' => $folder->id]) }}" class="folder_change_link {{(isset($folderId) && $folderId === $folder->id) ? 'action' : ''}}">{{ $folder->name }}</a>
+                    <a href="{{ route('image_list.filtering', ['folder' => $folder->id]) }}" class="folder_change_link {{(isset($specifiedFolderId) && $specifiedFolderId === $folder->id) ? 'action' : ''}}">{{ $folder->name }}</a>
                 @endforeach
             </div>
             <div class="main_container">

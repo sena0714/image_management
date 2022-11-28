@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Image\StoreRequest;
 use App\Http\Requests\Image\UpdateRequest;
 use App\Models\Image;
 use App\Models\Folder;
-use App\Services\Image\ImageUploader;
 use Illuminate\Support\Facades\Storage;
 use App\UseCases\Image\StoreAction;
+use App\UseCases\Image\UpdateAction;
+use App\UseCases\Image\DestroyAction;
 class ImageController extends Controller
 {
     public function index()
@@ -43,40 +43,20 @@ class ImageController extends Controller
         return view('images.edit', compact('image'));
     }
 
-    public function update(UpdateRequest $request, Image $image)
+    public function update(UpdateRequest $request, Image $image, UpdateAction $action)
     {
-        $image->title = $request->title;
-
-        if ($request->file('image')) {
-            $originalFilePath = 'storage/images/'.$image->filename;
-            if (Storage::exists($originalFilePath)) {
-                Storage::delete($originalFilePath);
-            }
-
-            $imageFile = $request->file('image');
-            $imageService = new ImageUploader();
-            $fileName = $imageService->upload($imageFile, 'images');
-
-            $image->filename = $fileName;
-        }
-
-        $image->save();
+        $action($request, $image);
 
         return redirect()
             ->route('images.index')
             ->with(['flashStatus' => 'info', 'flashMessage' => '画像情報を変更しました。']);
     }
 
-    public function destroy(Image $image)
+    public function destroy(Image $image, DestroyAction $action)
     {
-        $this->authorize('delete', [Image::class, $image]);
+        $this->authorize('destroy', [Image::class, $image]);
 
-        $filePath = 'storage/images/'.$image->filename;
-        if (Storage::exists($filePath)) {
-            Storage::delete($filePath);
-        }
-
-        $image->delete();
+        $action($image);
 
         return redirect()
             ->route('images.index')
@@ -92,17 +72,22 @@ class ImageController extends Controller
         return view('images.image_list', compact('folders', 'images'));
     }
 
-    public function filteringImageList(int $folderId)
+    public function filteringImageList(Folder $folder)
     {
+        $this->authorize('filteringImageList', [Image::class, $folder]);
+
         $folders = Folder::where('user_id', Auth::id())->get();
 
-        $images = Image::where('user_id', Auth::id())->where('folder_id', $folderId)->paginate(8);
+        $specifiedFolderId = $folder->id;
+        $images = Image::where('user_id', Auth::id())->where('folder_id', $specifiedFolderId)->paginate(8);
 
-        return view('images.image_list', compact('folders', 'images', 'folderId'));
+        return view('images.image_list', compact('folders', 'images', 'specifiedFolderId'));
     }
 
     public function download(Image $image)
     {
+        $this->authorize('download', [Image::class, $image]);
+
         return Storage::download('public/images/'.$image->filename);
     }
 }
