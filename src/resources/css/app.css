@@ -182,3 +182,7 @@
 .side_container .folder_change_link:hover {
     background-color: #e7e8ea;
 }
+
+.image_download_form {
+    display: inline-block;
+}

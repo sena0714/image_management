@@ -19,6 +19,9 @@ Route::resource('images', ImageController::class)
 ->middleware('auth')
 ->except(['show']);
 
+
+Route::post('/images/{image}/download', [ImageController::class, 'download'])->name('images.download');
+
 Route::prefix('image_list')
 ->middleware('auth')->group(function() {
     Route::get('index', [ImageController::class, 'imageList'])->name('image_list.index');

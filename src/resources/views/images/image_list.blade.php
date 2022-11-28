@@ -20,7 +20,12 @@
                     <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
                         <div class="mt-4">
                             <h2 class="text-gray-900 title-font text-lg font-medium">
-                                <button type="button" class="js_image_download">download!</button>
+                                <form method="post" action="{{ route('images.download', ['image' => $image->id]) }}" class="image_download_form">
+                                    @csrf
+                                    <button type="submit">
+                                        <img src="{{ asset('storage/images/download.png') }}">
+                                    </button>
+                                </form>
                                 {{ $image->title }}
                             </h2>
                         </div>

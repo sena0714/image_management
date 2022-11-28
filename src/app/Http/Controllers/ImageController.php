@@ -100,4 +100,9 @@ class ImageController extends Controller
 
         return view('images.image_list', compact('folders', 'images', 'folderId'));
     }
+
+    public function download(Image $image)
+    {
+        return Storage::download('public/images/'.$image->filename);
+    }
 }
