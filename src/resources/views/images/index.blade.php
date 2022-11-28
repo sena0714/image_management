@@ -27,6 +27,7 @@
                             @endforeach
                         </div>
                     </section>
+                    {{ $images->links() }}
                 </div>
             </div>
         </div>

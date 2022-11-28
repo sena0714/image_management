@@ -15,7 +15,7 @@ class ImageController extends Controller
 {
     public function index()
     {
-        $images = Image::where('user_id', Auth::id())->get();
+        $images = Image::where('user_id', Auth::id())->paginate(8);
         return view('images.index', compact('images'));
     }
 
@@ -87,7 +87,7 @@ class ImageController extends Controller
     {
         $folders = Folder::where('user_id', Auth::id())->get();
 
-        $images = Image::where('user_id', Auth::id())->get();
+        $images = Image::where('user_id', Auth::id())->paginate(8);
 
         return view('images.image_list', compact('folders', 'images'));
     }
@@ -96,7 +96,7 @@ class ImageController extends Controller
     {
         $folders = Folder::where('user_id', Auth::id())->get();
 
-        $images = Image::where('user_id', Auth::id())->where('folder_id', $folderId)->get();
+        $images = Image::where('user_id', Auth::id())->where('folder_id', $folderId)->paginate(8);
 
         return view('images.image_list', compact('folders', 'images', 'folderId'));
     }

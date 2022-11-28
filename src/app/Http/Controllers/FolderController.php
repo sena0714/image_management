@@ -13,7 +13,7 @@ class FolderController extends Controller
 {
     public function index()
     {
-        $folders = Folder::where('user_id', Auth::id())->get();
+        $folders = Folder::where('user_id', Auth::id())->paginate();
 
         $images = Image::where('user_id', Auth::id())->get();
 

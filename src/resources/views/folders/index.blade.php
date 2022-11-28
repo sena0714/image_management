@@ -29,6 +29,7 @@
                             @endforeach
                         </div>
                     </section>
+                    {{ $folders->links() }}
                 </div>
             </div>
         </div>

@@ -15,7 +15,7 @@
                 @endforeach
             </div>
             <div class="main_container">
-                <div class="flex flex-wrap -m-4">
+                <div class="flex flex-wrap -m-4 mb-1">
                     @foreach ($images as $image)
                     <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
                         <div class="mt-4">
@@ -33,6 +33,7 @@
                     </div>
                     @endforeach
                 </div>
+                {{ $images->links() }}
             </div>
         </div>
     </div>
