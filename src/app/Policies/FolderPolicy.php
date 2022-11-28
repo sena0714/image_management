@@ -24,7 +24,7 @@ class FolderPolicy
             : $this->deny('このフォルダを所持していません。');
     }
 
-    public function delete(User $user, Folder $folder)
+    public function destroy(User $user, Folder $folder)
     {
         return $user->hasFolder($folder)
             ? $this->allow()

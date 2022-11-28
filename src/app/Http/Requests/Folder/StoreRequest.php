@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Folder;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Folder;
 
 class StoreRequest extends FormRequest
 {
@@ -24,14 +25,19 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'folder_name' => 'required|string|max:50',
+            'name' => 'required|string|max:50',
         ];
     }
 
     public function messages()
     {
         return [
-            'folder_name.max' => 'フォルダ名は50文字以内にしてください。'
+            'name.max' => 'フォルダ名は50文字以内にしてください。'
         ];
+    }
+
+    public function makeFolder():Folder
+    {
+        return new Folder($this->validated());
     }
 }

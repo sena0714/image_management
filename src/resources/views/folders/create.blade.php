@@ -20,7 +20,7 @@
                                         <div class="p-2 w-full">
                                             <div class="relative">
                                                 <label class="leading-7 text-sm text-gray-600">フォルダ名</label>
-                                                <input type="text" name="folder_name" required class="w-full  bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                <input type="text" name="name" required class="w-full  bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             </div>
                                         </div>
                                         <div class="p-2 w-full">

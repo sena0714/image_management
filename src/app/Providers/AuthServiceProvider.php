@@ -28,5 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('image.update', 'App\Policies\ImagePolicy@update');
+
+        Gate::define('folder.update', 'App\Policies\FolderPolicy@update');
     }
 }

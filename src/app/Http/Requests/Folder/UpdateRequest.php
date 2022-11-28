@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Folder;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Folder;
 
 class UpdateRequest extends FormRequest
 {
@@ -13,7 +15,8 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $folder = $this->route()->parameter('folder');
+        return Gate::authorize('folder.update', $folder);
     }
 
     /**
@@ -24,14 +27,14 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'folder_name' => 'string|required|max:50'
+            'name' => 'string|required|max:50'
         ];
     }
 
     public function messages()
     {
         return [
-            'folder_name.max' => 'フォルダ名は50文字以内にしてください。'
+            'name.max' => 'フォルダ名は50文字以内にしてください。'
         ];
     }
 }
