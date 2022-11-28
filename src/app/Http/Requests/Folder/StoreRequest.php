@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\folder;
+namespace App\Http\Requests\Folder;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'folder_name' => 'string|required|max:50'
+            'folder_name' => 'required|string|max:50',
         ];
     }
 

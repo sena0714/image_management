@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\requests\image\StoreRequest;
-use App\Http\requests\image\UpdateRequest;
+use App\Http\Requests\Image\StoreRequest;
+use App\Http\Requests\Image\UpdateRequest;
 use App\Models\Image;
-use App\Services\image\ImageUploader;
+use App\Services\Image\ImageUploader;
 use Illuminate\Support\Facades\Storage;
 use App\UseCases\Image\StoreAction;
 class ImageController extends Controller

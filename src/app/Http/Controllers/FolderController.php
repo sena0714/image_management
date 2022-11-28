@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Folder;
 use App\Models\Image;
-use App\Http\Requests\folder\StoreRequest;
-use App\Http\Requests\folder\UpdateRequest;
+use App\Http\Requests\Folder\StoreRequest;
+use App\Http\Requests\Folder\UpdateRequest;
 
 class FolderController extends Controller
 {

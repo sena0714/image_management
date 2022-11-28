@@ -2,10 +2,10 @@
 
 namespace App\UseCases\Image;
 
-use App\Http\Requests\image\StoreRequest;
+use App\Http\Requests\Image\StoreRequest;
 use App\Models\User;
 use App\Models\Image;
-use App\Services\image\ImageUploader;
+use App\Services\Image\ImageUploader;
 
 class StoreAction
 {
