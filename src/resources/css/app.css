@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    box-sizing: border-box;
+}
+
 .folder_top {
     position: relative;
     width: 50%;
@@ -60,9 +64,9 @@
 
 .modal_wrapper {
     position: fixed;
-    top: -85%;
+    top: -100%;
     right: 0;
-    bottom: 120%;
+    bottom: 100%;
     left: 0;
     padding: 1.5rem;
     z-index: 100;
@@ -71,27 +75,7 @@
 
 .modal_wrapper.open {
     top: 0;
-    bottom: 15%;
-}
-
-.modal_footer {
-    position: fixed;
-    top: -15%;
-    right: 0;
-    bottom: 105%;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    z-index: 100;
-    transition: .8s;
-}
-
-.modal_footer.open {
-    top: 85%;
-    bottom: 5%;
-    z-index: 100;
+    bottom: 0;
 }
 
 .modal_container {
@@ -104,6 +88,8 @@
     padding: 1rem;
     border-radius: 10px;
     overflow-y: auto;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .modal_element {

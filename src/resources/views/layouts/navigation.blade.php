@@ -12,13 +12,13 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('image_list.index')" :active="request()->routeIs('image_list.index')">
+                    <x-nav-link :href="route('image_list.index')" :active="request()->routeIs('image_list.*')">
                         画像一覧
                     </x-nav-link>
-                    <x-nav-link :href="route('images.index')" :active="request()->routeIs('images.index')">
+                    <x-nav-link :href="route('images.index')" :active="request()->routeIs('images.*')">
                         画像管理
                     </x-nav-link>
-                    <x-nav-link :href="route('folders.index')" :active="request()->routeIs('folders.index')">
+                    <x-nav-link :href="route('folders.index')" :active="request()->routeIs('folders.*')">
                         フォルダ管理
                     </x-nav-link>
                 </div>
@@ -69,13 +69,13 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('image_list.index')" :active="request()->routeIs('image_list.index')">
+            <x-responsive-nav-link :href="route('image_list.index')" :active="request()->routeIs('image_list.*')">
                 画像一覧
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('images.index')" :active="request()->routeIs('images.index')">
+            <x-responsive-nav-link :href="route('images.index')" :active="request()->routeIs('images.*')">
                 画像管理
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('folders.index')" :active="request()->routeIs('folders.index')">
+            <x-responsive-nav-link :href="route('folders.index')" :active="request()->routeIs('folders.*')">
                 フォルダ管理
             </x-responsive-nav-link>
         </div>

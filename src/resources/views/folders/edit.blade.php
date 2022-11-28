@@ -52,10 +52,10 @@
                                                     <img src="{{ asset('storage/images/'.$image->filename) }}" alt="">
                                                 </div>
                                             @endforeach
+                                            <div class="w-full text-center mt-4">
+                                                <button type="button" id="image_close" class="bg-gray-200 border-0 py-2 px-8 focus:outline-none hover:bg-gray-400 rounded text-lg">閉じる</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div id="modal_footer" class="modal_footer">
-                                        <button type="button" id="image_close" class="bg-gray-200 border-0 py-2 px-8 focus:outline-none hover:bg-gray-400 rounded text-lg">閉じる</button>
                                     </div>
                                 </form>
                             </div>
@@ -73,13 +73,11 @@
         document.getElementById('image_select').addEventListener('click', function() {
             document.getElementById('modal_background').classList.add('open');
             document.getElementById('modal').classList.add('open');
-            document.getElementById('modal_footer').classList.add('open');
         });
 
         document.getElementById('image_close').addEventListener('click', function() {
             document.getElementById('modal_background').classList.remove('open');
             document.getElementById('modal').classList.remove('open');
-            document.getElementById('modal_footer').classList.remove('open');
         });
 
         document.getElementById('delete').addEventListener('click', function(event) {
