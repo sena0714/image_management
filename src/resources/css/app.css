@@ -140,3 +140,45 @@
     align-items: flex-start;
     justify-content: center;
 }
+
+.content_wrapper {
+    margin: 10px;
+}
+
+.content_container {
+    display: flex;
+    justify-content: center;
+    height: max-content;
+}
+
+.side_container {
+    background-color: white;
+    width: 30rem;
+    min-width: 20rem;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.main_container {
+    background-color: white;
+    width: 80rem;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.side_container .folder_change_link {
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    border-bottom: 1px solid #e7e8ea;
+}
+
+.side_container .folder_change_link.action {
+    background-color: #e7e8ea;
+}
+
+.side_container .folder_change_link:hover {
+    background-color: #e7e8ea;
+}

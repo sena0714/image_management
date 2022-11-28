@@ -21,7 +21,8 @@ Route::resource('images', ImageController::class)
 
 Route::prefix('image_list')
 ->middleware('auth')->group(function() {
-    Route::get('index', [ImageController::class, 'imageListIndex'])->name('image_list.index');
+    Route::get('index', [ImageController::class, 'imageList'])->name('image_list.index');
+    Route::get('index/{folder}', [ImageController::class, 'filteringImageList'])->name('image_list.filtering');
 });
 
 Route::get('/dashboard', function () {

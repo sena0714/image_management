@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Image\StoreRequest;
 use App\Http\Requests\Image\UpdateRequest;
 use App\Models\Image;
+use App\Models\Folder;
 use App\Services\Image\ImageUploader;
 use Illuminate\Support\Facades\Storage;
 use App\UseCases\Image\StoreAction;
@@ -82,9 +83,21 @@ class ImageController extends Controller
             ->with(['flashStatus' => 'info', 'flashMessage' => '画像情報を削除しました。']);
     }
 
-    public function imageListIndex()
+    public function imageList()
     {
+        $folders = Folder::where('user_id', Auth::id())->get();
+
         $images = Image::where('user_id', Auth::id())->get();
-        return view('images.index', compact('images'));
+
+        return view('images.image_list', compact('folders', 'images'));
+    }
+
+    public function filteringImageList(int $folderId)
+    {
+        $folders = Folder::where('user_id', Auth::id())->get();
+
+        $images = Image::where('user_id', Auth::id())->where('folder_id', $folderId)->get();
+
+        return view('images.image_list', compact('folders', 'images', 'folderId'));
     }
 }
