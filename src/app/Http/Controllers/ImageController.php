@@ -81,4 +81,10 @@ class ImageController extends Controller
             ->route('images.index')
             ->with(['flashStatus' => 'info', 'flashMessage' => '画像情報を削除しました。']);
     }
+
+    public function imageListIndex()
+    {
+        $images = Image::where('user_id', Auth::id())->get();
+        return view('images.index', compact('images'));
+    }
 }

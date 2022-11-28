@@ -19,6 +19,15 @@ Route::resource('images', ImageController::class)
 ->middleware('auth')
 ->except(['show']);
 
+Route::prefix('image_list')
+->middleware('auth')->group(function() {
+    Route::get('index', [ImageController::class, 'imageListIndex'])->name('image_list.index');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::resource('folders', FolderController::class)
 ->middleware('auth')
 ->except(['show']);
@@ -26,9 +35,5 @@ Route::resource('folders', FolderController::class)
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
