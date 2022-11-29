@@ -1,11 +1,11 @@
 @php
-if (session('flashStatus') === 'info') $bgColor = 'blue';
-if (session('flashStatus') === 'error') $bgColor = 'yellow';   
+if (session('status') === 'info') $bgColor = 'blue';
+if (session('status') === 'error') $bgColor = 'yellow';
 @endphp
 
 @if (session('flashMessage'))
     <div class="alert {{ $bgColor }}">
-        <span class="badge">{{ session('flashStatus') }}</span>
+        <span class="badge">{{ session('status') }}</span>
         {{ session('flashMessage') }}
         <button type="button" class="close">×</button>
     </div>
@@ -16,7 +16,7 @@ window.addEventListener('load', function() {
     addAlertCloseEvent();
 });
 
-function addAlertCloseEvent() {        
+function addAlertCloseEvent() {
     document.querySelectorAll('.alert .close').forEach((alertCloseButton, index) => {
         alertCloseButton.addEventListener('click', (e) => {
             e.target.closest('.alert').style.display = 'none';

@@ -34,20 +34,19 @@ class FolderController extends Controller
     public function store(StoreRequest $request, StoreAction $action)
     {
         $action($request);
-            
+
         return redirect()->route('folders.index')
-            ->with(['flashStatus' => 'info', 'flashMessage' => 'フォルダを登録しました。']);
+            ->with(['status' => 'info', 'flashMessage' => 'フォルダを登録しました。']);
     }
 
     public function edit(Folder $folder)
     {
         $this->authorize('edit', [Folder::class, $folder]);
 
-        $folderId = $folder->id;
         $images = Image::where('user_id', Auth::id())
-                    ->where(function($images) use($folderId) {
+                    ->where(function($images) use($folder) {
                         $images->whereNull('folder_id')
-                            ->orWhere('folder_id', $folderId);
+                            ->orWhere('folder_id', $folder->id);
                     })
                     ->get();
 
@@ -59,7 +58,7 @@ class FolderController extends Controller
         $action($request, $folder);
 
         return redirect()->route('folders.index')
-            ->with(['flashStatus' => 'info', 'flashMessage' => 'フォルダ情報を変更しました。']);
+            ->with(['status' => 'info', 'flashMessage' => 'フォルダ情報を変更しました。']);
     }
 
     public function destroy(Folder $folder, DestroyAction $action)
@@ -69,6 +68,6 @@ class FolderController extends Controller
         $action($folder);
 
         return redirect()->route('folders.index')
-            ->with(['flashStatus' => 'info', 'flashMessage' => 'フォルダを削除しました。']);
+            ->with(['status' => 'info', 'flashMessage' => 'フォルダを削除しました。']);
     }
 }

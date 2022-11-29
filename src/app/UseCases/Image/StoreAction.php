@@ -9,15 +9,14 @@ use App\Services\Image\ImageUploader;
 
 class StoreAction
 {
-    public function __invoke(StoreRequest $request, User $user, Image $image)
+    public function __invoke(StoreRequest $request, User $user, Image $image):void
     {
         $imageFile = $request->file('image');
-        $imageService = app()->make(ImageUploader::class);
-        $fileName = $imageService->upload($imageFile, 'images');
+        $imageUploader = app()->make(ImageUploader::class);
+        $fileName = $imageUploader->upload($imageFile, 'images');
 
         $image->user_id = $user->id;
         $image->filename = $fileName;
         $image->save();
-        return $image;
     }
 }

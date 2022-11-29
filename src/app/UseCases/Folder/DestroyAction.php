@@ -7,7 +7,7 @@ use App\Models\Folder;
 
 class DestroyAction
 {
-    public function __invoke(Folder $folder)
+    public function __invoke(Folder $folder):void
     {
         Image::where('folder_id', $folder->id)->update(['folder_id' => null]);    
 

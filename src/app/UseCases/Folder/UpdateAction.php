@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UpdateAction
 {
-    public function __invoke(UpdateRequest $request, Folder $folder)
+    public function __invoke(UpdateRequest $request, Folder $folder):void
     {
         $folder->user_id = Auth::id();
         $folder->name = $request->name;

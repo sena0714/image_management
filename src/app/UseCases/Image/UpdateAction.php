@@ -4,24 +4,23 @@ namespace App\UseCases\Image;
 
 use App\Http\Requests\Image\UpdateRequest;
 use App\Models\Image;
-use Illuminate\Support\Facades\Storage;
 use App\Services\Image\ImageUploader;
+use App\Services\Image\ImageDestroyer;
 
 class UpdateAction
 {
-    public function __invoke(UpdateRequest $request, Image $image)
+    public function __invoke(UpdateRequest $request, Image $image):void
     {
         $image->title = $request->title;
 
         if ($request->file('image')) {
             $originalFilePath = 'storage/images/'.$image->filename;
-            if (Storage::exists($originalFilePath)) {
-                Storage::delete($originalFilePath);
-            }
+            $imageDestroyer = app()->make(ImageDestroyer::class);
+            $imageDestroyer->destroy($originalFilePath);
 
             $imageFile = $request->file('image');
-            $imageService = new ImageUploader();
-            $fileName = $imageService->upload($imageFile, 'images');
+            $imageUploader = app()->make(ImageUploader::class);
+            $fileName = $imageUploader->upload($imageFile, 'images');
 
             $image->filename = $fileName;
         }

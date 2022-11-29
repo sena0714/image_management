@@ -28,12 +28,12 @@ class ImageController extends Controller
     {
         $user = Auth::user();
         $image = $request->makeImage();
-        
+
         $action($request, $user, $image);
-        
+
         return redirect()
             ->route('images.index')
-            ->with(['flashStatus' => 'info', 'flashMessage' => '画像を登録しました。']);
+            ->with(['status' => 'info', 'flashMessage' => '画像を登録しました。']);
     }
 
     public function edit(Image $image)
@@ -49,7 +49,7 @@ class ImageController extends Controller
 
         return redirect()
             ->route('images.index')
-            ->with(['flashStatus' => 'info', 'flashMessage' => '画像情報を変更しました。']);
+            ->with(['status' => 'info', 'flashMessage' => '画像情報を変更しました。']);
     }
 
     public function destroy(Image $image, DestroyAction $action)
@@ -60,7 +60,7 @@ class ImageController extends Controller
 
         return redirect()
             ->route('images.index')
-            ->with(['flashStatus' => 'info', 'flashMessage' => '画像情報を削除しました。']);
+            ->with(['status' => 'info', 'flashMessage' => '画像情報を削除しました。']);
     }
 
     public function imageList()
@@ -81,7 +81,7 @@ class ImageController extends Controller
         $specifiedFolderId = $folder->id;
         $images = Image::where('user_id', Auth::id())->where('folder_id', $specifiedFolderId)->paginate(8);
 
-        return view('images.image_list', compact('folders', 'images', 'specifiedFolderId'));
+        return view('images.image_list', compact('folders', 'specifiedFolderId', 'images'));
     }
 
     public function download(Image $image)

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class StoreAction
 {
-    public function __invoke(StoreRequest $request)
+    public function __invoke(StoreRequest $request):void
     {
         $folder = $request->makeFolder();
         $folder->user_id = Auth::id();
